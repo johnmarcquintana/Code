@@ -1,0 +1,54 @@
+ADD //with image{
+try
+            {
+
+                if (cbpatient.Text == "" || txtfname.Text == "" || txtmid.Text == "" || txtlname.Text == "" || gender == "" || txtheight.Text == "" || txtweight.Text == "" || txtage.Text == "" || txtcontact.Text == "" || txtpaddress.Text == "" || cbcivil.Text == "")
+                {
+                    MessageBox.Show("Please Fill the field", "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                else
+                {
+                    FileStream fs = new FileStream(txtpic.Text, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                    byte[] bt = new byte[fs.Length];
+                    fs.Read(bt, 0, Convert.ToInt32(fs.Length));
+                    fs.Close();
+
+
+                    con.Open();
+                    SqlCommand sqlcom = con.CreateCommand();
+                    sqlcom.CommandType = CommandType.Text;
+                    sqlcom.CommandText = "insert into Patientinfo (Customer_ID,Patient,Firstname,Middlename,Lastname,Gender,Age,Paddress,Contact,Civilstatus,Height,Weight,Userimage) values( '" + txtCid.Text + "','" + cbpatient.Text + "','" + txtfname.Text + "','" + txtmid.Text + "','" + txtlname.Text + "','" + gender + "','" + txtage.Text + "','" + txtpaddress.Text + "','" + txtcontact.Text + "','" + cbcivil.Text + "','" + txtheight.Text + "','" + txtweight.Text + "',@img)";
+                    SqlParameter sp = new SqlParameter("@img", SqlDbType.VarBinary, bt.Length, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, bt);
+                    sqlcom.Parameters.Add(sp);
+                    sqlcom.ExecuteNonQuery();
+
+                    cbpatient.Text = "";
+                    txtfname.Clear();
+                    txtmid.Clear();
+                    txtlname.Clear();
+                    gender = "";
+                    txtage.Clear();
+                    txtpaddress.Clear();
+                    txtcontact.Clear();
+                    cbcivil.Text = "";
+                    txtheight.Clear();
+                    txtweight.Clear();
+                    MessageBox.Show("Successfully Added", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                    SqlDataAdapter sq = new SqlDataAdapter("Select isnull(max(cast(Customer_ID as int)),0)+1 from Patientinfo", con);
+                    DataTable dt = new DataTable();
+                    sq.Fill(dt);
+                    txtCid.Text = dt.Rows[0][0].ToString();
+                    this.ActiveControl = cbpatient;
+                    con.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+}
