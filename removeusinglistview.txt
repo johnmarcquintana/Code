@@ -1,0 +1,38 @@
+btnremove using listview {
+   try
+            {
+                if (MessageBox.Show("Are you sure want to void this item??", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+
+                    if (listView1.SelectedItems.Count == 0) return;
+                    listView1.SelectedItems[0].Remove();
+
+                    this.txttotalitem.Text = listView1.Items.Count.ToString();
+                    double value = 0;
+
+                    foreach (ListViewItem lviitem in listView1.Items)
+                    {
+                        value += double.Parse(lviitem.SubItems[4].Text);
+
+                    }
+
+                    txttamount.Text = value.ToString();
+
+
+                    double val = 0;
+
+                    foreach (ListViewItem lviitem in listView1.Items)
+                    {
+
+                        val += double.Parse(lviitem.SubItems[3].Text);
+                    }
+
+
+                    txttotalitem.Text = val.ToString();
+                }
+
+                else
+                {
+                    return;
+                }
+}
