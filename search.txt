@@ -1,0 +1,33 @@
+search with listview {
+ try
+            {
+
+                string com = "select Patient,Firstname,Lastname,Gender,Age,Height,Weight,Date from Patientinfo  where Firstname like '%" + txtsearch.Text + "%'";
+                SqlCommand comm = new SqlCommand(com, con);
+                con.Open();
+                SqlDataReader sdr = comm.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    ListViewItem items = new ListViewItem(sdr.GetValue(0).ToString());
+                    items.SubItems.Add(sdr.GetValue(1).ToString());
+                    items.SubItems.Add(sdr.GetValue(2).ToString());
+                    items.SubItems.Add(sdr.GetValue(3).ToString());
+                    items.SubItems.Add(sdr.GetValue(4).ToString());
+                    items.SubItems.Add(sdr.GetValue(5).ToString());
+                    items.SubItems.Add(sdr.GetValue(6).ToString());
+                    items.SubItems.Add(sdr.GetValue(7).ToString());
+                    listView1.Items.Add(items);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+}
