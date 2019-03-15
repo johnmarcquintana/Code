@@ -1,0 +1,8 @@
+Auto increment {
+
+ SqlDataAdapter sq = new SqlDataAdapter("Select isnull(max(cast(Customer_ID as int)),0)+1 from Patientinfo", con);
+            DataTable dt = new DataTable();
+            sq.Fill(dt);
+            txtCid.Text = dt.Rows[0][0].ToString();
+            //this.ActiveControl = cbpatient;
+}

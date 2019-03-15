@@ -1,0 +1,12 @@
+Code image {
+
+ OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtpic.Text = ofd.FileName;
+                Bitmap bit = new Bitmap(ofd.FileName);
+                pictureBox1.Image = bit;
+                //pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+
+            }
+}
