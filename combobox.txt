@@ -1,0 +1,85 @@
+combobox depend to another combobox
+
+declaration
+{
+	List<SubCategories> sCat = new List<SubCategories>();
+        List<Categories> Cat = new List<Categories>();
+}
+main load{
+
+            cbCategories.Items.Clear();
+
+            con.Open();
+            SqlCommand command = new SqlCommand("select * from Categories", con);
+            SqlDataReader reader = command.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+                cbCategories.Items.Add(reader["Category"].ToString());
+                Cat.Add(new Categories()
+                {
+
+                    Cat_id = ((int)reader["Cat_id"]),
+                    Category = reader["Category"] as string
+
+                });
+            }
+
+            con.Close();
+
+            con.Open();
+
+            SqlCommand com = new SqlCommand("select * from SubCategory", con);
+            SqlDataReader read = com.ExecuteReader();
+
+            while (read.Read())
+            {
+
+
+                sCat.Add(new SubCategories()
+                {
+                    SubCategory_id = ((int)read["SubCategory_id"]),
+                    SubCategory = read["SubCategory"] as string,
+                    Cat_id = ((int)read["Cat_id"])
+
+                });
+
+            }
+
+            con.Close();
+
+        }
+}
+
+combobox1
+{
+cbSubcategories.Items.Clear();
+            int id = Cat[cbCategories.SelectedIndex].Cat_id;
+            foreach (String name in GetbyID(id))
+            {
+                
+                this.cbSubcategories.Items.Add(name);
+                
+            }
+
+}
+
+ private string[] GetbyID(int id)
+        {
+            return sCat.Where(line => line.Cat_id == id).Select(l => l.SubCategory).ToArray();
+        }
+        [Serializable]
+        class Categories
+        {
+            public int Cat_id { get; set; }
+            public string Category { get; set; }
+        }
+        [Serializable]
+
+        class SubCategories
+        {
+            public int SubCategory_id { get; set; }
+            public string SubCategory { get; set; }
+            public int Cat_id { get; set; }
+        }
