@@ -1,0 +1,59 @@
+textbox autocomplete
+{
+try
+            {
+                con.Open();
+                string sql = "select Productname from Product where SubCategory LIKE @name";
+                SqlCommand command = new SqlCommand(sql, con);
+
+
+                SqlDataReader dr;
+                command.Parameters.Add(new SqlParameter("@name", "%" + cbSubcategories.Text + "%"));
+                command.ExecuteNonQuery();
+                dr = command.ExecuteReader();
+                AutoCompleteStringCollection acc = new AutoCompleteStringCollection();
+                while (dr.Read())
+                {
+                    acc.Add(dr.GetString(0));
+                }
+
+                txtpdescription.AutoCompleteCustomSource = acc;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            try
+            {
+                con.Open();
+                string sqlselect = "select Price from Product where Productname = '" + txtpdescription.Text + "'";
+                SqlCommand cmd = new SqlCommand(sqlselect, con);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                if (sdr.Read())
+                {
+
+                    txtprice.Text = (sdr["Price"].ToString());
+
+
+                }
+
+            }
+
+            catch (Exception exx)
+            {
+                MessageBox.Show(exx.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+}
