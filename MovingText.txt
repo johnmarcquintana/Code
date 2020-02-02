@@ -1,0 +1,29 @@
+MOVING TEXT
+
+public Admin()
+        {
+            InitializeComponent();
+            timermovingtext1.Start();
+            timermovingtext2.Start();
+          
+        }
+
+private void timermovingtext1_Tick(object sender, EventArgs e)
+        {
+            Lblmovingtext.Location = new Point(Lblmovingtext.Location.X - 3, Lblmovingtext.Location.Y);
+
+            if (Lblmovingtext.Location.X < 0 - Lblmovingtext.Width)
+            {
+                Lblmovingtext.Location = new Point(this.Width, Lblmovingtext.Location.Y);
+            }
+        }
+
+private void timermovingtext2_Tick(object sender, EventArgs e)
+        {
+            Lblmovingtext2.Location = new Point(Lblmovingtext2.Location.X - 3, Lblmovingtext2.Location.Y);
+
+            if (Lblmovingtext2.Location.X < 0 - Lblmovingtext2.Width)
+            {
+                Lblmovingtext2.Location = new Point(this.Width, Lblmovingtext2.Location.Y);
+            }
+        }
