@@ -1,0 +1,21 @@
+CLASS CONNECTION TO SQL SERVER 2012
+
+class Connection
+    {
+        public SqlCommand command = new SqlCommand();
+        public SqlDataReader dr;
+        public SqlDataAdapter sqlda = new SqlDataAdapter();
+        public static SqlConnection conn = new SqlConnection();
+
+        public void Connect()
+        {
+            if (conn.State == ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+            conn.ConnectionString = @"Data Source=DESKTOP-7B7AJ1Q;Initial Catalog=HMSdatabase;Integrated Security=True";
+            command.Connection = conn;
+            conn.Open();
+        }
+    }
