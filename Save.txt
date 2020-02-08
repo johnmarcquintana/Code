@@ -1,0 +1,25 @@
+Savefile
+
+
+
+private void button1_Click(object sender, EventArgs e)
+        {
+            //string path = @"C:\Users\Regina G. Davis\Desktop";
+            //if (!File.Exists(path))
+            //{
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.InitialDirectory = @"C:\";
+                sfd.FileName = "*.txt";
+                sfd.Filter = "txt file |*.txt";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    Stream fs = sfd.OpenFile();
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine(textBox1.Text);
+
+                    sw.Close();
+                    
+
+                }
+            //}
+        }
