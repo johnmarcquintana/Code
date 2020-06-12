@@ -1,0 +1,22 @@
+ BTNlogin
+        {
+            konek.Connect();
+            string query = "select * from LoginInfo where Username = '" + textBox1.Text + "' and Password = '" + textBox2.Text + "'";
+            konek.command.Connection = ConnectionDB.conn;
+            konek.command = new SqlCommand(query, konek.command.Connection);
+            konek.sqlda = new SqlDataAdapter(konek.command);
+            konek.command.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            konek.sqlda.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                this.Hide();
+                Menu m = new Menu();
+                m.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wrong username or password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
