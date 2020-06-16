@@ -1,0 +1,17 @@
+RESTORE DATABASE
+
+
+try
+            {
+                konek.Connect();
+                string query = @"RESTORE DATABASE [MB database] FROM DISK = 'C:\Users\Quintana\Desktop\SampleDB\MB database.bak'";
+                konek.command.Connection = ConnectionDB.conn;
+                konek.command = new SqlCommand(query, konek.command.Connection);
+                konek.command.ExecuteNonQuery();
+                MessageBox.Show("Successfully Restore Database", "RESTORE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }

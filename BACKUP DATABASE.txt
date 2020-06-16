@@ -1,0 +1,18 @@
+BACK UP DATABASE
+
+
+
+try
+            {
+                konek.Connect();
+                string query = @"BACKUP DATABASE [MB database] TO DISK = 'C:\Users\Quintana\Desktop\SampleDB\MB database.bak'";
+                konek.command.Connection = ConnectionDB.conn;
+                konek.command = new SqlCommand(query, konek.command.Connection);
+                konek.command.ExecuteNonQuery();
+                MessageBox.Show("Successfully Back up Database", "SAVE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
