@@ -1,0 +1,25 @@
+Textbox autocomplete 
+
+private void Menu_Load(object sender, EventArgs e){
+
+try
+            {
+                konek.Connect();
+                string querys = "Select * from GuestInfo_tbl";
+                konek.command.Connection = ConnectionDB.conn;
+                konek.command = new SqlCommand(querys, konek.command.Connection);
+                konek.dr = konek.command.ExecuteReader();
+                AutoCompleteStringCollection acc = new AutoCompleteStringCollection();
+
+                while (konek.dr.Read())
+                {
+                    acc.Add(konek.dr.GetString(1));
+                }
+                TBguestname.AutoCompleteCustomSource = acc;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+}
