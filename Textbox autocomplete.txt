@@ -1,6 +1,7 @@
 Textbox autocomplete 
 
-private void Menu_Load(object sender, EventArgs e){
+private void Menu_Load(object sender, EventArgs e)
+{
 
 try
             {
